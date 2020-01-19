@@ -35,11 +35,9 @@ namespace WebAtividadeEntrevista.Controllers
                         Id = model.Id,
                         Nome = model.Nome,                    
                         CPF = model.CPF,
-                        IdCliente = (model.IdCliente == 0 ? long.Parse(TempData["Cliente"].ToString()) : model.IdCliente)
+                        IdCliente = (model.IdCliente == 0 ? long.Parse(Session["Cliente"].ToString()) : model.IdCliente)
 
                     });
-
-                    TempData["Cliente"] = model.IdCliente;
 
                     return Json("Cadastro efetuado com sucesso");
                 }
@@ -55,7 +53,7 @@ namespace WebAtividadeEntrevista.Controllers
         [HttpGet]
         public ActionResult Incluir(long id)
         {
-            TempData["Cliente"] = id;
+            Session["Cliente"] = id;
             return View();
         }
 
@@ -64,7 +62,7 @@ namespace WebAtividadeEntrevista.Controllers
         {
 
             BoBeneficiario bo = new BoBeneficiario();
-            var listaBeneficiario = bo.Listar(long.Parse(TempData["Cliente"].ToString()));
+            var listaBeneficiario = bo.Listar(long.Parse(Session["Cliente"].ToString()));
 
             return Json(listaBeneficiario, JsonRequestBehavior.AllowGet);
         }
@@ -80,7 +78,6 @@ namespace WebAtividadeEntrevista.Controllers
         {
             BoBeneficiario bo = new BoBeneficiario();
             bo.Excluir(id);
-            TempData["Cliente"] = Url.RequestContext.RouteData.Values["id"].ToString();
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }

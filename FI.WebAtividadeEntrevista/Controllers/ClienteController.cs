@@ -54,8 +54,6 @@ namespace WebAtividadeEntrevista.Controllers
                         CPF = model.CPF
                     });
 
-                    TempData["Cliente"] = model.Id;
-
                     return Json("Cadastro efetuado com sucesso");
                 }
                 catch (Exception ex)
