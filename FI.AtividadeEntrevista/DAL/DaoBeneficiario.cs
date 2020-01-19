@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FI.AtividadeEntrevista.DML;
 
 namespace FI.AtividadeEntrevista.DAL
 {
     /// <summary>
-    /// Classe de acesso a dados de Beneficiarios
+    /// Classe de acesso a dados de Beneficiários
     /// </summary>
     internal class DaoBeneficiario : AcessoDados
     {
@@ -17,7 +14,7 @@ namespace FI.AtividadeEntrevista.DAL
         /// Inclui um novo beneficiário
         /// </summary>
         /// <param name="Beneficiarios">Objeto de beneficiários</param>
-        internal long Incluir(DML.Beneficiario beneficiario)
+        internal long Incluir(Beneficiario beneficiario)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
             
@@ -40,9 +37,9 @@ namespace FI.AtividadeEntrevista.DAL
         {
             var sql = string.Format("SELECT NOME, CPF, ID, IDCLIENTE FROM BENEFICIARIOS WHERE id = {0}", Id);
             DataSet ds = base.Consultar(sql);
-            List<DML.Beneficiario> cli = Converter(ds);
+            List<DML.Beneficiario> beneficiario = Converter(ds);
 
-            return cli.FirstOrDefault();
+            return beneficiario.FirstOrDefault();
         }
 
         internal bool VerificarExistencia(string CPF, long idCliente)
@@ -65,9 +62,9 @@ namespace FI.AtividadeEntrevista.DAL
             var sql = string.Format("SELECT NOME, CPF, ID, IDCLIENTE FROM BENEFICIARIOS WHERE idcliente = {0}", idCliente);
 
             DataSet ds = base.Consultar(sql);
-            List<DML.Beneficiario> cli = Converter(ds);
+            List<DML.Beneficiario> listaBeneficiarios = Converter(ds);
 
-            return cli;
+            return listaBeneficiarios;
         }
 
         /// <summary>
@@ -106,11 +103,11 @@ namespace FI.AtividadeEntrevista.DAL
             {
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    DML.Beneficiario cli = new DML.Beneficiario();
-                    cli.Id = row.Field<long>("Id");
-                    cli.Nome = row.Field<string>("Nome");             
-                    cli.CPF = row.Field<string>("CPF");
-                    lista.Add(cli);
+                    DML.Beneficiario beneficiario = new DML.Beneficiario();
+                    beneficiario.Id = row.Field<long>("Id");
+                    beneficiario.Nome = row.Field<string>("Nome");             
+                    beneficiario.CPF = row.Field<string>("CPF");
+                    lista.Add(beneficiario);
                 }
             }
 

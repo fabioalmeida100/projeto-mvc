@@ -1,9 +1,6 @@
 ﻿using FI.AtividadeEntrevista.CPF;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FI.AtividadeEntrevista.BLL
 {
@@ -23,24 +20,22 @@ namespace FI.AtividadeEntrevista.BLL
             {
                 return Incluir(beneficiario);
             }
-
         }
-
 
         /// <summary>
         /// Inclui um novo beneficiário
         /// </summary>
-        /// <param name="beneficiarios">Objeto de beneficiário</param>
-        public long Incluir(DML.Beneficiario beneficiarios)
+        /// <param name="beneficiario">Objeto de beneficiário</param>
+        public long Incluir(DML.Beneficiario beneficiario)
         {
-            DAL.DaoBeneficiario beneficiario = new DAL.DaoBeneficiario();
-            beneficiarios.CPF = CPFUtils.RemoverFormatacaoCPF(beneficiarios.CPF);
+            DAL.DaoBeneficiario beneficiarioDAL = new DAL.DaoBeneficiario();
+            beneficiario.CPF = CPFUtils.RemoverFormatacaoCPF(beneficiario.CPF);
 
-            if (!CPFUtils.Validar(beneficiarios.CPF))
+            if (!CPFUtils.Validar(beneficiario.CPF))
                 throw new Exception("CPF inválido.");           
 
-            if (!VerificarExistencia(beneficiarios.CPF, beneficiarios.IdCliente))
-                return beneficiario.Incluir(beneficiarios); 
+            if (!VerificarExistencia(beneficiario.CPF, beneficiario.IdCliente))
+                return beneficiarioDAL.Incluir(beneficiario); 
             else
                 throw new Exception("CPF já cadastrado.");
 
@@ -52,13 +47,13 @@ namespace FI.AtividadeEntrevista.BLL
         /// <param name="beneficiario">Objeto de beneficiário</param>
         public void Alterar(DML.Beneficiario beneficiario)
         {
-            DAL.DaoBeneficiario beneficiarios = new DAL.DaoBeneficiario();
+            DAL.DaoBeneficiario beneficiarioDAL = new DAL.DaoBeneficiario();
             beneficiario.CPF = CPFUtils.RemoverFormatacaoCPF(beneficiario.CPF);
 
             if (!CPFUtils.Validar(beneficiario.CPF))
                 throw new Exception("CPF inválido.");
 
-            beneficiarios.Alterar(beneficiario);
+            beneficiarioDAL.Alterar(beneficiario);
         }
 
         /// <summary>
@@ -68,8 +63,8 @@ namespace FI.AtividadeEntrevista.BLL
         /// <returns></returns>
         public DML.Beneficiario Consultar(long id)
         {
-            DAL.DaoBeneficiario beneficiario = new DAL.DaoBeneficiario();
-            return beneficiario.Consultar(id);
+            DAL.DaoBeneficiario beneficiarioDAL = new DAL.DaoBeneficiario();
+            return beneficiarioDAL.Consultar(id);
         }
 
         /// <summary>
@@ -79,28 +74,19 @@ namespace FI.AtividadeEntrevista.BLL
         /// <returns></returns>
         public void Excluir(long id)
         {
-            DAL.DaoBeneficiario cli = new DAL.DaoBeneficiario();
-            cli.Excluir(id);
+            DAL.DaoBeneficiario beneficiarioDAL = new DAL.DaoBeneficiario();
+            beneficiarioDAL.Excluir(id);
         }
 
         /// <summary>
-        /// Lista os clientes
+        /// Lista os benefiarios
         /// </summary>
         public List<DML.Beneficiario> Listar(long idCliente)
         {
-            DAL.DaoBeneficiario cli = new DAL.DaoBeneficiario();
-            return cli.Listar(idCliente);
+            DAL.DaoBeneficiario beneficiarioDAL = new DAL.DaoBeneficiario();
+            return beneficiarioDAL.Listar(idCliente);
         }
-
-        /// <summary>
-        /// Lista os clientes
-        /// </summary>
-        public List<DML.Cliente> Pesquisa(int iniciarEm, int quantidade, string campoOrdenacao, bool crescente, out int qtd)
-        {
-            DAL.DaoCliente cli = new DAL.DaoCliente();
-            return cli.Pesquisa(iniciarEm,  quantidade, campoOrdenacao, crescente, out qtd);
-        }
-
+                
         /// <summary>
         /// VerificaExistencia
         /// </summary>
