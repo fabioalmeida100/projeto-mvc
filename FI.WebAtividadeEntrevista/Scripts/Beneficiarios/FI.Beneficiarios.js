@@ -121,5 +121,5 @@ function ObterIdCliente() {
     var url = window.location.href;
     var array = url.split('/');
 
-    return array[array.length - 1];    
+    return array[array.length - 1].replace('#', '');    
 }
