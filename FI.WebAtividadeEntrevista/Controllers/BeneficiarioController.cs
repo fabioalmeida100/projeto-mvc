@@ -35,7 +35,8 @@ namespace WebAtividadeEntrevista.Controllers
                         Id = model.Id,
                         Nome = model.Nome,                    
                         CPF = model.CPF,
-                        IdCliente = model.IdCliente
+                        IdCliente = (model.IdCliente == 0 ? long.Parse(TempData["Cliente"].ToString()) : model.IdCliente)
+
                     });
 
                     TempData["Cliente"] = model.IdCliente;
@@ -79,6 +80,8 @@ namespace WebAtividadeEntrevista.Controllers
         {
             BoBeneficiario bo = new BoBeneficiario();
             bo.Excluir(id);
+            TempData["Cliente"] = Url.RequestContext.RouteData.Values["id"].ToString();
+
             return Json(true, JsonRequestBehavior.AllowGet);
         }
     }

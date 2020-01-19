@@ -19,7 +19,7 @@ namespace WebAtividadeEntrevista.Controllers
 
         public ActionResult Incluir()
         {
-            return View();
+            return View(new ClienteModel());
         }
 
         [HttpPost]
@@ -53,6 +53,8 @@ namespace WebAtividadeEntrevista.Controllers
                         Telefone = model.Telefone,
                         CPF = model.CPF
                     });
+
+                    TempData["Cliente"] = model.Id;
 
                     return Json("Cadastro efetuado com sucesso");
                 }

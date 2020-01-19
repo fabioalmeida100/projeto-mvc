@@ -5,14 +5,12 @@
 @section scripts{
     <script>
         var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
-
-        $(document).ready(function () {
-            $("#CPF").mask("999.999.999-99");
-        });
+        $('#btnBeneficiario').hide();
     </script>
     @Scripts.Render("~/bundles/clientes");
+    @Scripts.Render("~/bundles/Funcoes");
 
-}
-<h2>@Html.Raw(ViewBag.Title)</h2>
-@Html.Partial("Forms")
+ }
+    <h2>@Html.Raw(ViewBag.Title)</h2>
+    @Html.Partial("Forms")
 

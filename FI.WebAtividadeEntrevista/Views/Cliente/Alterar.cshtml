@@ -7,19 +7,9 @@
         var urlPost = '@Url.Action("Alterar", "Cliente", new { area = "" })';
         var obj = @Html.Raw(Json.Encode(Model));
         var urlRetorno = '@Url.Action("Index", "Cliente", new { area = "" })';
-
-        $(document).ready(function () {
-            $("#CPF").mask("999.999.999-99");
-        });
-
-        $('#btnBeneficiario').on('click', function (e) {
-            e.preventDefault();
-            $('#modalBeneficiario').modal('show').find('.modal-content').load($(this).attr('href'));
-        });
-
     </script>
-    @Scripts.Render("~/bundles/altClientes")
-
+    @Scripts.Render("~/bundles/altClientes");
+    @Scripts.Render("~/bundles/Funcoes");
 }
 <h2>@Html.Raw(ViewBag.Title)</h2>
 @Html.Partial("Forms")
